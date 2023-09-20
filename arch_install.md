@@ -81,9 +81,11 @@ Mount boot partition
 Other dependencies to install: 
 - vim
 
+Generate fstab to autoload mount point on boot
 ```console
 # genfstab -U /mnt >> /mnt/etc/fstab
 ```
+
 
 Take a look in fstab file 
 ```console
@@ -108,8 +110,40 @@ first find all the localization files
 ```
 
 find and uncomment 'en_US, UTF-8 UTF-8'
+
+![local_gen](/assets/screenshot_4.jpg)
+
+Generate locale character set for your language
 ```console
 # locale-gen
+```
+
+create a new locale.conf and set the language argument
+```console
+# echo "LANG=en_US.UTF-8" > /etc/locale.conf
+```
+
+### Network Configuration
+```console
+# vim /etc/hostname
+```
+
+Name whatever hostname you would like
+
+![hostname](/assets/screenshot_5.jpg)
+
+### _optional_
+
+Edit hosts file
+```console
+# vim /etc/hosts
+```
+
+![host_file](/assets/screenshot_6.jpg)
+
+### Root Password
+```console
+# passwd
 ```
 
 
