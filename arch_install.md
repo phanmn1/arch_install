@@ -211,8 +211,7 @@ I guess to get the fstab directory to be correctly created before configuring sn
 
 ```
 # sudo umount /.snapshots
-# sudo rm -r /.snapshots
-# sudo snapper -c root create-config /
+# sudo rm -r /.snapshots # sudo snapper -c root create-config /
 # sudo btrfs subvolume delete /.snapshots
 # sudo mkdir /.snapshots
 # sudo mount -a 
@@ -220,9 +219,28 @@ I guess to get the fstab directory to be correctly created before configuring sn
 # sudo vim /etc/snapper/configs/root
 ```
 
+set 'ALLOW_USERS=""' your user name
+
 Suggested snapshot config froma arch wiki
 
 ![snapshot_config](/assets/screenshot_9.jpg)
+
+```console
+# sudo systemctl enable --now snapper-timeline.timer
+# sudo systemctl enable --now snapper-cleanup.timer
+```
+
+## Install yay
+```console
+# git clone https://aur.archlinux.org/yay
+# cd yay 
+# makepkg -si PKGBUILD 
+```
+
+run yay to install two packages for snapper 
+```console
+# yay -S snap-pac-grub snapper-gui
+```
 
 
 
