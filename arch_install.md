@@ -77,9 +77,10 @@ Mount boot partition
 ```console
 # pacstrap /mnt base linux linux-firmware
 ```
-
-Other dependencies to install: 
-- vim
+optional additions: 
+- amd-ucode (amd systems)
+- intel-ucode (intel systems) 
+- vim (vim editor)
 
 Generate fstab to autoload mount point on boot
 ```console
@@ -146,8 +147,107 @@ Edit hosts file
 # passwd
 ```
 
+![rootpwd](/assets/screenshot_7.jpg)
+
+### Boot loader 
+
+Install grub 
+```console
+# pacman -S grub efibootmgr
+```
+
+configure mkinitcpio 
+```console
+# vim /etc/mkinitcpio.conf
+```
+
+![mkinitcpio](/assets/screenshot_8.jpg)
+
+regenerate kernel image with btrfs module included
+```console
+# mkinitcpio -p linux
+```
+
+install grub bootloader 
+```console
+# grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+```
+note: the efi directory is not not /mnt/boot b/c the <code>[root@archiso /] #</code> is already in the /mnt directory. We moved in here we we defined the archroot cmd
+
+generate config file for grub
+```console
+# grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+exit arch root 
+```console
+# exit
+```
+
+unmount partitions 
+```console
+# umount -a
+```
+
+reboot system
+```console
+# reboot
+```
+
+Remove install disk
 
 
+## Post Install 
+### Set up snapshots
+
+Install Snapper package
+```console
+# packman -S snapper
+```
+
+Unmount and delete all references to .snapshots directory (why did I even do this in the first place?)
+
+I guess to get the fstab directory to be correctly created before configuring snapper
+
+```
+# sudo umount /.snapshots
+# sudo rm -r /.snapshots
+# sudo snapper -c root create-config /
+# sudo btrfs subvolume delete /.snapshots
+# sudo mkdir /.snapshots
+# sudo mount -a 
+# sudo chmod 750 /.snapshots
+# sudo vim /etc/snapper/configs/root
+```
+
+Suggested snapshot config froma arch wiki
+
+![snapshot_config](/assets/screenshot_9.jpg)
+
+
+
+optinal installs
+- networkmanager
+- network-manager-applet
+- dialog 
+- wpa_supplicant 
+- mtools 
+- dosfstools
+- git
+- reflector
+- snapper 
+- bluez 
+- bluez-utils 
+- cups
+- xdg-utils 
+- xdg-user-dirs
+- alsa-utils
+- pulseaudio
+- pulseaudio-bluetooth
+- inetutils 
+- base-devel 
+- linux-headers
+- bash-completion
 
 
 
