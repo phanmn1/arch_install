@@ -153,16 +153,11 @@ Edit hosts file
 
 Install grub 
 ```console
-# pacman -S grub efibootmgr networkmanager dhcpcd
+# pacman -S grub efibootmgr networkmanager 
+# systemctl enable NetworkManager 
 ```
 
-dhcpcd might only be needed to get the internet working for vbox installs. Will try both ways on live install to make sure hardware works correctly. 
-
-```console
-# systemctl enable dhcpcd
-```
-
-systemd enable dhcp for vbox before reboot 
+enable network manager to allow for dhcp on reboot
 
 configure mkinitcpio 
 ```console
