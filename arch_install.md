@@ -153,8 +153,16 @@ Edit hosts file
 
 Install grub 
 ```console
-# pacman -S grub efibootmgr
+# pacman -S grub efibootmgr networkmanager dhcpcd
 ```
+
+dhcpcd might only be needed to get the internet working for vbox installs. Will try both ways on live install to make sure hardware works correctly. 
+
+```console
+# systemctl enable dhcpcd
+```
+
+systemd enable dhcp for vbox before reboot 
 
 configure mkinitcpio 
 ```console
@@ -211,7 +219,8 @@ I guess to get the fstab directory to be correctly created before configuring sn
 
 ```
 # sudo umount /.snapshots
-# sudo rm -r /.snapshots # sudo snapper -c root create-config /
+# sudo rm -r /.snapshots 
+# sudo snapper -c root create-config /
 # sudo btrfs subvolume delete /.snapshots
 # sudo mkdir /.snapshots
 # sudo mount -a 
