@@ -208,6 +208,11 @@ Install Snapper package
 # packman -S snapper
 ```
 
+```console
+# useradd -mG wheel phanmn1
+# passwd phanmn1
+```
+
 Unmount and delete all references to .snapshots directory (why did I even do this in the first place?)
 
 I guess to get the fstab directory to be correctly created before configuring snapper
