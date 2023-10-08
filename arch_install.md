@@ -201,18 +201,47 @@ Remove install disk
 
 
 ## Post Install 
-### Set up snapshots
+### Install misc packages 
 
-Install Snapper package
 ```console
-# packman -S snapper
+# pacman -S base-devel linux-headers bash-completion reflector git
 ```
 
+*see notes section for details on what these packages do
+
+### Reflector
+```console
+# vim /etc/pacman.d/mirrorlist
+# sudo reflector -c "United States" -a 6 --sort rate --save /etc/pacman.d/mirrorlist
+```
+
+reflector is a package that selects the best mirrors closest to your region so pacman and yay can find your packages
+
+### Set up users
 ```console
 # useradd -mG wheel phanmn1
 # passwd phanmn1
 ```
 
+set editor for visudo 
+```console
+# EDITOR=vim visudo
+```
+set permissions properties for wheel group by uncommenting line so every member of wheel group will have sudo privlidges
+
+![wheel_group](/assets/screenshot_10.jpg)
+
+
+### Time date sync 
+```console
+# timedatectl set-ntp true
+```
+### Set up snapshots
+
+Install Snapper package
+```console
+# pacman -S snapper
+```
 Unmount and delete all references to .snapshots directory (why did I even do this in the first place?)
 
 I guess to get the fstab directory to be correctly created before configuring snapper
@@ -249,6 +278,11 @@ Suggested snapshot config froma arch wiki
 run yay to install two packages for snapper 
 ```console
 # yay -S snap-pac-grub snapper-gui
+```
+
+## Install Hyperland Compositor
+```console
+# yay -S hyprland dolphin wofi 
 ```
 
 
